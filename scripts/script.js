@@ -1,5 +1,17 @@
-
 document.addEventListener('DOMContentLoaded', () => {
+
+    window.onload = () => {
+        // --- loader fade out ---
+        const loader = document.getElementById('loader');
+        setTimeout(() => {
+            loader.classList.add('fade-out');
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500); // Match with CSS transition duration
+        }, 1500); // Minimum display time for loader
+    };
+
+    window.scrollTo(0, 0); // Ensure page starts at top on reload
 
     // --- 1. Sticky Navbar Effect ---
     const navbar = document.getElementById('navbar');
@@ -35,6 +47,30 @@ document.addEventListener('DOMContentLoaded', () => {
         else {
             icon.classList.remove('fa-times');
             icon.classList.add('fa-bars');
+        }
+    });
+
+    // close menu when a link is clicked or when clicking outside
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                navMenu.classList.add('deactive');
+                const icon = mobileToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+    });
+    document.addEventListener('click', (e) => {
+        if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+            if (navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                navMenu.classList.add('deactive');
+                const icon = mobileToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
         }
     });
 
